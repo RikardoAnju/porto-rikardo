@@ -6,6 +6,8 @@ type Props = {
   items: ReactNode[];
   /** ms antar pergantian */
   interval?: number;
+  /** ms acak (+/-) ditambahkan ke tiap interval, supaya beberapa rotator tidak pernah sejajar */
+  jitter?: number;
   /** ms sebelum pergantian pertama, supaya banyak rotator tidak berganti bersamaan */
   delay?: number;
   /**
@@ -29,6 +31,7 @@ type Props = {
 export default function RotatingText({
   items,
   interval = 2800,
+  jitter = 0,
   delay = 0,
   swap = false,
   letters = false,
@@ -40,20 +43,24 @@ export default function RotatingText({
     if (items.length < 2) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let id: ReturnType<typeof setInterval>;
-    const start = setTimeout(() => {
-      id = setInterval(() => {
-        // Jangan berganti saat tab tidak terlihat.
-        if (document.hidden) return;
+    let timer: ReturnType<typeof setTimeout>;
+    const next = () => interval + (jitter ? (Math.random() * 2 - 1) * jitter : 0);
+    const tick = () => {
+      // Jangan berganti saat tab tidak terlihat.
+      if (!document.hidden) {
         setState((s) => ({ index: (s.index + 1) % items.length, prev: s.index }));
-      }, interval);
+      }
+      timer = setTimeout(tick, next());
+    };
+    const start = setTimeout(() => {
+      timer = setTimeout(tick, next());
     }, delay);
 
     return () => {
       clearTimeout(start);
-      clearInterval(id);
+      clearTimeout(timer);
     };
-  }, [items.length, interval, delay]);
+  }, [items.length, interval, jitter, delay]);
 
   if (letters) {
     const words = items as string[];

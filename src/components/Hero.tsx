@@ -61,7 +61,7 @@ export default function Hero() {
               Rikardo
             </span>
             <br />
-            <RotatingText items={t.hero.roles} letters interval={3400} className="whitespace-nowrap" />
+            <RotatingText items={t.hero.roles} letters interval={4800} jitter={400} className="whitespace-nowrap" />
           </h1>
 
           <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-[17px] dark:text-slate-300">
@@ -115,6 +115,8 @@ export default function Hero() {
               swap
               className="w-full"
               delay={1200}
+              interval={4100}
+              jitter={600}
               items={t.focusAreas.map(({ icon: Icon, title, desc }) => (
                 <div
                   key={title}
@@ -145,6 +147,8 @@ export default function Hero() {
               swap
               className="w-full"
               delay={2000}
+              interval={3300}
+              jitter={500}
               items={t.values.map(({ icon: Icon, text }) => (
                 <div
                   key={text}
@@ -169,6 +173,8 @@ export default function Hero() {
             <RotatingText
               swap
               delay={2800}
+              interval={2700}
+              jitter={400}
               items={techs.map((t) => (
                 <div
                   key={t.name}

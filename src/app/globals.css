@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f7fb;
+  --foreground: #1e293b;
+  --primary: #6366f1;
+  --primary-light: #67e8f9;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #f1f5f9;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  background-image:
+    radial-gradient(at 20% 50%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(103, 232, 249, 0.06) 0px, transparent 50%);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.5);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.8);
+}
+
+/* Hero entrance: plays once, CSS only (no JS animation loop, no idle cost) */
+.hero-rise {
+  opacity: 0;
+}
+
+[data-ready="true"] .hero-rise {
+  animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  [data-ready="true"] .hero-rise {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Pertukaran kartu (RotatingText swap): kartu lama cepat memudar sambil naik keluar,
+   lalu kartu baru naik masuk dari bawah dengan jeda singkat. Tumpang tindih
+   dibuat sangat kecil supaya dua kartu tidak terlihat bertabrakan di tempat yang
+   sama, tapi tetap satu gerakan yang bersambung. Hanya opacity/translate/scale. */
+.swap-card {
+  opacity: 0;
+  transition:
+    opacity 0.24s ease-out,
+    translate 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    scale 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.swap-card[data-state="prev"] {
+  translate: 0 -16px;
+  scale: 0.97;
+}
+
+.swap-card[data-state="next"] {
+  translate: 0 16px;
+  scale: 0.97;
+}
+
+.swap-card[data-state="active"] {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  transition:
+    opacity 0.5s ease-out 0.14s,
+    translate 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+    scale 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap-card,
+  .swap-card[data-state="active"] {
+    transition: none;
+  }
+}

@@ -10,6 +10,8 @@ export type Project = {
   description: { id: string; en: string };
   tech: string[];
   link: string;
+  /** Screenshot untuk thumbnail kartu, path di /public (mis. "/projects/nama.webp"). Kosongkan kalau belum ada. */
+  image?: string;
 };
 
 const placeholderWeb = {
@@ -23,11 +25,15 @@ const placeholderMobile = {
 
 export const projects: Project[] = [
   {
-    title: "Nama Project Web 1",
-    type: "Web",
-    description: placeholderWeb,
-    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+    title: "Ayo Cuci - Kasir Laundry",
+    type: "Mobile",
+    description: {
+      id: "Aplikasi mobile kasir & manajemen laundry: kehadiran karyawan, status pesanan, hingga laporan keuangan multi outlet. Backend dan API dites lewat Postman, login akun pakai Google Sign-In via Firebase.",
+      en: "A mobile POS & management app for laundry businesses: employee attendance, order status, and multi-outlet financial reports. API built and tested with Postman, with Google Sign-In via Firebase.",
+    },
+    tech: ["Flutter", "Dart", "Go", "Firebase", "Postman"],
     link: "",
+    image: "/projects/ayocuci-beranda-clean.webp",
   },
   {
     title: "Nama Project Web 2",

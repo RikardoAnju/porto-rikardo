@@ -47,7 +47,7 @@ export default function Hero() {
         <div className="absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(103,232,249,0.28),transparent_70%)]" />
       </div>
 
-      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 [&>*]:min-w-0">
         {/* Left: copy */}
         <div className="hero-rise" {...rise(0)}>
           <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-700 dark:bg-indigo-900/30 dark:text-cyan-300">
@@ -55,7 +55,7 @@ export default function Hero() {
             {t.hero.badge}
           </span>
 
-          <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-slate-900 sm:text-5xl dark:text-white">
+          <h1 className="mb-6 text-[clamp(1.6rem,8.5vw,2.25rem)] font-bold leading-tight tracking-tight text-slate-900 sm:text-5xl dark:text-white">
             Hi, I&apos;m{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent">
               Rikardo
@@ -64,7 +64,7 @@ export default function Hero() {
             <RotatingText items={t.hero.roles} letters interval={4800} jitter={400} className="whitespace-nowrap" />
           </h1>
 
-          <p className="mb-8 max-w-xl text-base leading-relaxed text-slate-600 sm:text-[17px] dark:text-slate-300">
+          <p className="mb-8 max-w-xl text-justify text-base leading-relaxed text-slate-600 sm:text-[17px] dark:text-slate-300">
             {t.hero.intro}
           </p>
 
@@ -87,14 +87,16 @@ export default function Hero() {
 
         {/* Right: photo + floating cards */}
         <div
-          className="hero-rise relative mx-auto h-[480px] w-full max-w-[560px] sm:h-[560px]"
+          className="hero-rise relative mx-auto h-[400px] w-full max-w-[560px] sm:h-[560px]"
           {...rise(0.1)}
         >
           {/* Organic blob */}
           <div className="absolute left-1/2 top-0 h-[88%] w-[72%] -translate-x-1/2 rounded-[45%_55%_60%_40%/55%_45%_55%_45%] bg-gradient-to-br from-indigo-300 via-indigo-200 to-cyan-200 dark:from-indigo-700/50 dark:via-indigo-800/40 dark:to-cyan-700/30" />
 
-          {/* Foto: bagian bawah memudar halus agar tidak terlihat terpotong */}
-          <div className="absolute inset-x-0 bottom-0 top-6 flex items-end justify-center overflow-hidden [mask-image:linear-gradient(to_bottom,black_88%,transparent_100%)]">
+          {/* Foto: bagian bawah, kiri, dan kanan memudar halus agar tidak terlihat terpotong */}
+          <div
+            className="absolute inset-x-0 bottom-0 top-6 flex items-end justify-center overflow-hidden [-webkit-mask-composite:source-in] [-webkit-mask-image:linear-gradient(to_bottom,black_88%,transparent_100%),linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)] [mask-composite:intersect] [mask-image:linear-gradient(to_bottom,black_88%,transparent_100%),linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)]"
+          >
             <Image
               src="/foto.webp"
               alt="Rikardo Anju"
@@ -157,7 +159,7 @@ export default function Hero() {
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-cyan-300">
                     <Icon className="h-5 w-5" />
                   </span>
-                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                  <p className="text-xs font-semibold sm:text-sm text-slate-700 dark:text-slate-200">
                     {text}
                   </p>
                 </div>
@@ -168,7 +170,7 @@ export default function Hero() {
           {/* Pill kanan atas: teknologi yang dipakai. Tiap item = 1 pill utuh */}
           <div
             {...rise(0.6)}
-            className="hero-rise absolute right-0 top-2 whitespace-nowrap xl:[right:calc(-1*min(5rem,(100vw_-_72rem)/2_-_0.75rem))]"
+            className="hero-rise absolute right-0 top-2 hidden whitespace-nowrap sm:block xl:[right:calc(-1*min(5rem,(100vw_-_72rem)/2_-_0.75rem))]"
           >
             <RotatingText
               swap
@@ -178,12 +180,17 @@ export default function Hero() {
               items={techs.map((t) => (
                 <div
                   key={t.name}
-                  className={`${surface} flex w-full items-center gap-3 rounded-full py-2.5 pl-2.5 pr-6`}
+                  className={`${surface} flex w-full items-center gap-2 rounded-full py-1.5 pl-1.5 pr-4 sm:gap-3 sm:py-2.5 sm:pl-2.5 sm:pr-6`}
                 >
-                  <span
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-bold ${t.color} ${t.text}`}
-                  >
-                    {t.short}
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-50 p-1.5 ring-1 ring-inset ring-slate-200 sm:h-10 sm:w-10 sm:p-2 dark:bg-white dark:ring-slate-300">
+                    <Image
+                      src={t.logo}
+                      alt=""
+                      width={24}
+                      height={24}
+                      unoptimized
+                      className="h-full w-full rounded-md object-contain"
+                    />
                   </span>
                   <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                     {t.name}
@@ -193,6 +200,32 @@ export default function Hero() {
             />
           </div>
         </div>
+
+        {/* Mobile: semua teknologi tampil statis (tanpa pergantian) di bawah foto */}
+        <ul
+          {...rise(0.6)}
+          className="hero-rise -mt-6 flex flex-wrap justify-center gap-2 sm:hidden"
+          aria-label="Teknologi"
+        >
+          {techs.map((tech) => (
+            <li
+              key={tech.name}
+              className={`${surface} flex items-center gap-1.5 !rounded-full py-1 pl-1 pr-3 text-xs font-semibold text-slate-700 !shadow-[0_4px_14px_rgba(15,23,42,0.08)] dark:text-slate-200`}
+            >
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-50 p-1 ring-1 ring-inset ring-slate-200 dark:bg-white dark:ring-slate-300">
+                <Image
+                  src={tech.logo}
+                  alt=""
+                  width={16}
+                  height={16}
+                  unoptimized
+                  className="h-full w-full rounded-md object-contain"
+                />
+              </span>
+              {tech.name}
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Floating contact button */}

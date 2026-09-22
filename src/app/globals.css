@@ -1,10 +1,17 @@
 @import "tailwindcss";
 
+/* Situs selalu tampil terang, walau perangkat pengunjung disetel dark mode.
+   Variant "dark:" dialihkan ke class ".force-dark" yang tidak pernah kita
+   pasang di manapun, jadi seluruh utilitas dark: di kode (Hero, Navbar, dll)
+   otomatis tidak pernah aktif — tanpa perlu menghapusnya satu per satu. */
+@custom-variant dark (&:where(.force-dark, .force-dark *));
+
 :root {
   --background: #f5f7fb;
   --foreground: #1e293b;
   --primary: #6366f1;
   --primary-light: #67e8f9;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -12,13 +19,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f172a;
-    --foreground: #f1f5f9;
-  }
 }
 
 body {

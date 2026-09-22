@@ -1,81 +1,15 @@
 "use client";
 
+import ProjectShowcase from "./ProjectShowcase";
 import { useLang } from "@/src/components/LanguageProvider";
-import { projects } from "@/src/data/projects";
+
 
 export default function Sections() {
-  const { lang, t } = useLang();
+  const { t } = useLang();
 
   return (
     <>
-      {/* Projects Section */}
-      <section
-        id="projects"
-        className="[content-visibility:auto] [contain-intrinsic-size:auto_900px] relative border-t border-indigo-200/40 px-4 py-20 dark:border-indigo-900/30 sm:py-32"
-      >
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-16">
-            <h2 className="mb-4 text-5xl font-bold text-slate-900 dark:text-white">
-              {t.projects.title}
-            </h2>
-            <p className="max-w-2xl text-lg text-slate-600 dark:text-slate-300">
-              {t.projects.subtitle}
-            </p>
-          </div>
-
-          <div className="grid gap-8 sm:grid-cols-2">
-            {projects.map((p) => (
-              <div
-                key={p.title}
-                className="group relative overflow-hidden rounded-2xl border border-indigo-200/40 bg-white transition-all duration-300 hover:border-indigo-400/50 hover:shadow-xl dark:border-indigo-900/30 dark:bg-slate-900/50"
-              >
-                {/* Gradient background on hover */}
-                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-50 to-cyan-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-indigo-900/20 dark:to-cyan-900/20" />
-
-                {/* Image placeholder with gradient */}
-                <div className="relative overflow-hidden bg-gradient-to-br from-indigo-200 via-cyan-200 to-indigo-300 p-6 dark:from-indigo-900/40 dark:via-cyan-900/40 dark:to-indigo-900/40">
-                  <div className="aspect-video rounded-xl bg-gradient-to-br from-white/20 to-white/10" />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="mb-2 text-xl font-bold text-slate-900 dark:text-white">
-                    {p.title}
-                  </h3>
-                  <p className="mb-6 text-slate-600 dark:text-slate-400">
-                    {p.description[lang]}
-                  </p>
-
-                  {/* Tech Stack */}
-                  <div className="mb-6 flex flex-wrap gap-2">
-                    <span className="inline-block rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300">
-                      {p.type}
-                    </span>
-                    {p.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="inline-block rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-200"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* View Project Link */}
-                  <a
-                    href={p.link || "#"}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 transition-all hover:gap-3 dark:text-cyan-300"
-                  >
-                    {t.projects.view}
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProjectShowcase />
 
       {/* Contact Section */}
       <section

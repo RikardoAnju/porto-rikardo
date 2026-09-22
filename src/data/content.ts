@@ -18,24 +18,25 @@ export type Lang = "id" | "en";
 
 // ---------- Tidak perlu diterjemahkan ----------
 
-// Pill kanan atas: teknologi yang dipakai, berganti satu per satu.
-// short = singkatan di lingkaran, color = warna lingkaran, text = warna huruf.
+// Pill kanan atas & chip mobile: teknologi yang dipakai.
+// logo = file di /public/logos (webp, sudah dioptimasi). Tambah/hapus di sini saja.
 export const techs = [
-  { name: "JavaScript", short: "JS", color: "bg-yellow-400", text: "text-slate-900" },
-  { name: "Flutter", short: "Fl", color: "bg-sky-500", text: "text-white" },
-  { name: "Next.js", short: "Nx", color: "bg-slate-900", text: "text-white" },
-  { name: "Laravel", short: "La", color: "bg-red-500", text: "text-white" },
-  { name: "JWT Authentication", short: "JW", color: "bg-fuchsia-600", text: "text-white" },
-  { name: "Git & GitHub", short: "Gh", color: "bg-slate-700", text: "text-white" },
-  { name: "Postman", short: "Pm", color: "bg-orange-500", text: "text-white" },
-  { name: "Supabase", short: "Sb", color: "bg-emerald-500", text: "text-white" },
-  { name: "Firebase", short: "Fb", color: "bg-amber-500", text: "text-white" },
-  { name: "TypeScript", short: "TS", color: "bg-blue-600", text: "text-white" },
-  { name: "Dart", short: "Dt", color: "bg-cyan-600", text: "text-white" },
-  { name: "PHP", short: "Ph", color: "bg-indigo-500", text: "text-white" },
-  { name: "MySQL", short: "My", color: "bg-sky-700", text: "text-white" },
-  { name: "Golang", short: "Go", color: "bg-cyan-500", text: "text-white" },
-  { name: "REST API", short: "API", color: "bg-violet-600", text: "text-white" },
+  { name: "JavaScript", logo: "/logos/javascript.webp" },
+  { name: "TypeScript", logo: "/logos/typescript.webp" },
+  { name: "React Native", logo: "/logos/react.webp" },
+  { name: "Flutter", logo: "/logos/flutter.webp" },
+  { name: "Dart", logo: "/logos/dart.webp" },
+  { name: "Next.js", logo: "/logos/nextdotjs.webp" },
+  { name: "Laravel", logo: "/logos/laravel.webp" },
+  { name: "PHP", logo: "/logos/php.webp" },
+  { name: "Golang", logo: "/logos/go.webp" },
+  { name: "MySQL", logo: "/logos/mysql.webp" },
+  { name: "PostgreSQL", logo: "/logos/postgresql.webp" },
+  { name: "Supabase", logo: "/logos/supabase.webp" },
+  { name: "Firebase", logo: "/logos/firebase.webp" },
+  { name: "Git", logo: "/logos/git.webp" },
+  { name: "GitHub", logo: "/logos/github.webp" },
+  { name: "Postman", logo: "/logos/postman.webp" },
 ];
 
 const focusIcons: LucideIcon[] = [Globe, Smartphone, Server, Database];
@@ -54,7 +55,7 @@ const id = {
     intro:
       "Saya adalah seorang pengembang perangkat lunak yang memiliki minat besar dalam bidang teknologi informasi, khususnya pengembangan web, mobile, dan backend. Aktif mengembangkan berbagai aplikasi digital menggunakan teknologi modern serta memiliki pengalaman dalam membangun prototype, API, dan aplikasi berbasis kebutuhan pengguna. Selalu tertarik untuk belajar teknologi baru dan menghasilkan solusi yang bermanfaat.",
     // Kata yang berganti di judul ("Hi, I'm Rikardo ...")
-    roles: ["Web Developer", "Mobile Developer", "Backend Developer", "Fullstack Developer"],
+    roles: ["Web Development", "Mobile Development"],
     ctaProjects: "Lihat Project",
     ctaContact: "Hubungi Saya",
     emailAria: "Kirim email",
@@ -94,7 +95,7 @@ const en: typeof id = {
     badge: "Welcome to my portfolio",
     intro:
       "I am a software developer with a strong interest in information technology, especially web, mobile, and backend development. I actively build digital applications with modern technologies and have experience creating prototypes, APIs, and applications based on user needs. I am always eager to learn new technologies and deliver useful solutions.",
-    roles: ["Web Developer", "Mobile Developer", "Backend Developer", "Fullstack Developer"],
+    roles: ["Web Development", "Mobile Development"],
     ctaProjects: "View Projects",
     ctaContact: "Contact Me",
     emailAria: "Send email",

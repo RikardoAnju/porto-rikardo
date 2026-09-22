@@ -2,6 +2,11 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 
+// Dipakai bersama semua rotator: pergantian diberi jarak minimal supaya tidak pernah
+// terjadi berbarengan (setiap pergantian mendapat "slot" waktunya sendiri).
+const MIN_GAP = 900;
+let lastSwapAt = 0;
+
 type Props = {
   items: ReactNode[];
   /** ms antar pergantian */
@@ -46,11 +51,16 @@ export default function RotatingText({
     let timer: ReturnType<typeof setTimeout>;
     const next = () => interval + (jitter ? (Math.random() * 2 - 1) * jitter : 0);
     const tick = () => {
-      // Jangan berganti saat tab tidak terlihat.
-      if (!document.hidden) {
-        setState((s) => ({ index: (s.index + 1) % items.length, prev: s.index }));
-      }
-      timer = setTimeout(tick, next());
+      const now = Date.now();
+      const at = Math.max(now, lastSwapAt + MIN_GAP);
+      lastSwapAt = at;
+      timer = setTimeout(() => {
+        // Jangan berganti saat tab tidak terlihat.
+        if (!document.hidden) {
+          setState((s) => ({ index: (s.index + 1) % items.length, prev: s.index }));
+        }
+        timer = setTimeout(tick, next());
+      }, at - now);
     };
     const start = setTimeout(() => {
       timer = setTimeout(tick, next());
